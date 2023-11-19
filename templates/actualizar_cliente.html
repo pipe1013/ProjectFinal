@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleAdmin.css') }}">
+    
+    <title>CRUD App</title>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <ul>
+            <li><a href="{{ url_for('cliente.agendar_cita') }}">Gestionar Citas</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Bienvenido, {{ nombre_usuario }}</h1>
+        </header>
+
+        <div class="main-content">
+            <h2>Editar Cliente</h2>
+
+            <!-- Formulario para editar un cliente -->
+            <form method="POST" action="{{ url_for('cliente.actualizar_cliente', cliente_id=cliente.id_Cliente) }}">
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ cliente.nombre }}" required>
+
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" value="{{ cliente.apellido }}" required>
+
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" value="{{ cliente.telefono }}" required>
+
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" value="{{ cliente.direccion }}" required>
+
+                <input type="submit" value="Actualizar">
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

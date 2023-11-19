@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleAdmin.css') }}">
+    
+    <title>CRUD App</title>
+</head>
+<body>
+    
+
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <ul>
+            <li><a href="{{ url_for('cliente.cliente') }}">Gestionar Clientes</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Bienvenido, {{ nombre_usuario }}</h1>
+        </header>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>nn 1</th>
+                    <th> bb 2</th>
+                    <th>cc 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Dato 1</td>
+                    <td>Dato 2</td>
+                    <td>Dato 3</td>
+                </tr>
+                <tr>
+                    <td>Dato 4</td>
+                    <td>Dato 5</td>
+                    <td>Dato 6</td>
+                </tr>
+                <!-- Puedes agregar más filas según sea necesario -->
+            </tbody>
+        </table>
+
+        <div class="main-content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>
