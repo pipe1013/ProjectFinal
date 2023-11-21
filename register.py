@@ -10,32 +10,37 @@ def register():
     error_message = None
     if request.method == 'POST':
         nombre = request.form['nombre']
-        correo = request.form['correo']
+        apellido = request.form['apellido']
+        telefono = request.form['telefono']
+        direccion = request.form['direccion']
         contrasena = request.form['contrasena']
-        rol = 'cliente'
+        rol = 'administrador'
 
         conn = connect_to_db()
         if conn:
             try:
                 cursor = conn.cursor()
-                sql_check_email = "SELECT id_usuario FROM Usuarios WHERE correo = %s"
-                cursor.execute(sql_check_email, (correo,))
-                existing_user = cursor.fetchone()
 
-                if existing_user:
-                    error_message = "El correo ya está registrado. Por favor, usa otro correo."
+                # Verificar si el nombre ya está registrado
+                sql_check_nombre = "SELECT id_Administrador FROM Administrador WHERE nombre_admin = %s"
+                cursor.execute(sql_check_nombre, (nombre,))
+                existing_admin = cursor.fetchone()
+
+                if existing_admin:
+                    error_message = "El nombre ya está registrado. Por favor, usa otro nombre."
                 else:
-                    sql_insert_user = "INSERT INTO Usuarios (nombre, correo, contrasena, rol) VALUES (%s, %s, %s, %s)"
-                    values = (nombre, correo, contrasena, rol)
-                    cursor.execute(sql_insert_user, values)
+                    # Insertar nuevo administrador
+                    sql_insert_admin = "INSERT INTO Administrador (nombre_admin, apellido_admin, telefono_admin, direccion_admin, contrasena) VALUES (%s, %s, %s, %s, %s)"
+                    values = (nombre, apellido, telefono, direccion, contrasena)
+                    cursor.execute(sql_insert_admin, values)
                     conn.commit()
                     cursor.close()
                     conn.close()
 
                     return redirect(url_for('login.login'))
             except mysql.connector.Error as err:
-                print(f"Error al insertar el usuario en la base de datos: {err}")
-                error_message = "Ocurrió un error al registrar el usuario. Por favor, intenta nuevamente."
+                print(f"Error al insertar el administrador en la base de datos: {err}")
+                error_message = "Ocurrió un error al registrar el administrador. Por favor, intenta nuevamente."
         else:
             error_message = "Error de conexión a la base de datos. Por favor, intenta nuevamente."
 

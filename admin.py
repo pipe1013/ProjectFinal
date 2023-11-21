@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, session, request, flash, redirect, url_for, Response
 from authentication import login_required
 from db import connect_to_db
+import mysql.connector
 
 admin_routes = Blueprint('admin', __name__)
 
@@ -20,7 +21,11 @@ def admin():
     # Obtener la lista de clientes desde la base de datos (ajusta según tu implementación)
     admin = obtener_clientes_desde_db()
 
-    return render_template('cliente.html', nombre_usuario="Nombre de usuario", clientes=admin)
+    return render_template('admin.html', nombre_usuario="Nombre de usuario", clientes=admin)
+
+@admin_routes.route('/crearAdmin')
+def crearAdmin():
+    return render_template('crearAdmin.html')
 
 @admin_routes.route('/agendar_cita')
 def agendar_cita():
@@ -59,7 +64,50 @@ def crear_cliente():
 
     return redirect(url_for('admin.admin'))
 
-# ... (importar las bibliotecas y definir la conexión)
+@admin_routes.route('/register_admin', methods=['GET', 'POST'])
+def register_admin():
+    error_message = None
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        telefono = request.form['telefono']
+        direccion = request.form['direccion']
+        contrasena = request.form['contrasena']
+        rol = 'administrador'
+
+        # Agrega esta impresión para verificar los datos
+        print(f"Datos del nuevo administrador: {nombre}, {apellido}, {telefono}, {direccion}, {contrasena}")
+
+        conn = connect_to_db()
+        if conn:
+            try:
+                cursor = conn.cursor()
+
+                # Verificar si el nombre ya está registrado
+                sql_check_nombre = "SELECT id_Administrador FROM Administrador WHERE nombre_admin = %s"
+                cursor.execute(sql_check_nombre, (nombre,))
+                existing_admin = cursor.fetchone()
+
+                if existing_admin:
+                    error_message = "El nombre ya está registrado. Por favor, usa otro nombre."
+                else:
+                    # Insertar nuevo administrador
+                    sql_insert_admin = "INSERT INTO Administrador (nombre_admin, apellido_admin, telefono_admin, direccion_admin, contrasena) VALUES (%s, %s, %s, %s, %s)"
+                    values = (nombre, apellido, telefono, direccion, contrasena)
+                    cursor.execute(sql_insert_admin, values)
+                    conn.commit()
+                    cursor.close()
+                    conn.close()
+
+                    return redirect(url_for('admin.crearAdmin'))
+            except mysql.connector.Error as err:
+                print(f"Error al insertar el administrador en la base de datos: {err}")
+                error_message = "Ocurrió un error al registrar el administrador. Por favor, intenta nuevamente."
+        else:
+            error_message = "Error de conexión a la base de datos. Por favor, intenta nuevamente."
+
+    return render_template('crearAdmin.html', error_message=error_message)
+
 
 @admin_routes.route('/actualizar_cliente/<int:cliente_id>', methods=['POST'])
 def actualizar_cliente(cliente_id):
@@ -79,8 +127,7 @@ def actualizar_cliente(cliente_id):
             conn.commit()
 
             flash("Cliente actualizado exitosamente", "success")
-        
-
+            
         except Exception as e:
             flash(f"Error al actualizar el cliente: {str(e)}", "error")
         finally:
@@ -88,7 +135,6 @@ def actualizar_cliente(cliente_id):
             conn.close()
 
     return redirect(url_for('admin.admin'))
-
 
 @admin_routes.route('/eliminar_cliente/<int:cliente_id>', methods=['POST'])
 def eliminar_cliente(cliente_id):
@@ -110,6 +156,15 @@ def eliminar_cliente(cliente_id):
             conn.close()
 
     return redirect(url_for('admin.admin'))
+
+@admin_routes.route('/gestionar_clientes')
+@login_required
+def gestionar_clientes():
+    # Obtén los datos desde la base de datos
+    datos_clientes = connect_to_db()
+
+    # Renderiza la plantilla y pasa los datos como argumento
+    return render_template('admin.html', nombre_usuario="Nombre de usuario", datos_clientes=datos_clientes)
 
 def obtener_clientes_desde_db():
     # Lógica para conectarse a la base de datos y obtener los clientes
@@ -133,6 +188,4 @@ def obtener_clientes_desde_db():
     
     # Retorna una lista vacía si hay algún problema con la conexión a la base de datos
     return []
-
-
 

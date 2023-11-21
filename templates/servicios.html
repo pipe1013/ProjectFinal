@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleServicios.css') }}">
+    <title>Servicios</title>
+</head>
+
+<body>
+
+       <!-- Header -->
+       <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo de la empresa">
+            <h1>LAVANDERIA PREMIUM</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a class="login-btn" href="{{ url_for('index.index') }}">Inicio</a></li>
+                <li><a class="login-btn" href="{{ url_for('nosotros.nosotros') }}">Sobre Nosotros</a></li>
+                <li><a class="login-btn" href="{{ url_for('servicios.servicios') }}">servicios</a></li>
+                <li><a class="login-btn" href="{{ url_for('login.login') }}">Iniciar Sesión</a></li>
+                <li><a class="login-btn" href="{{ url_for('register.register') }}">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h2>HOGAR</h2>
+
+    <div class="service-row">
+        
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img1.png') }}" alt="Servicio Hogar 1">
+            <div class="service-text">
+                <h3>Lavado x Libras / x Prendas</h3>
+                <p>Camisas, camisetas, pantalones, jeans, chaquetas, abrigos.</p>
+            </div>
+        </div>
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img2.png') }}" alt="Servicio Hogar 2">
+            <div class="service-text">
+                <h3>Ropa de Cama</h3>
+                <p>Edredones, cobijas, cubrelechos, sábanas, duvets.</p>
+            </div>
+        </div>
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img3.png') }}" alt="Servicio Hogar 3">
+            <div class="service-text">
+                <h3>Calzado</h3>
+                <p>Tennis, zapatillas, zapatos</p>
+            </div>
+        </div>
+    </div>
+    <h2>HOMECARE - VEHÍCULOS</h2>
+    <div class="service-row">
+        
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img4.png') }}" alt="Servicio Hogar 1">
+            <div class="service-text">
+                <h3>Colchones y Peluches</h3>
+                <p>Eliminación de ácaros, lavado y desinfeción a vapor.</p>
+            </div>
+        </div>
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img5.png') }}" alt="Servicio Hogar 2">
+            <div class="service-text">
+                <h3>Muebles y Tapicerias</h3>
+                <p>Sofás, muebles y juegos de sala en general.</p>
+            </div>
+        </div>
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img6.png') }}" alt="Servicio Hogar 3">
+            <div class="service-text">
+                <h3>Interior de Vehículos</h3>
+                <p>Techos, tapiceria, cojineria.</p>
+            </div>
+        </div>
+    </div>
+    <h2>INSTITUCIONAL</h2>
+    <div class="service-row">
+        
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img7.png') }}" alt="Servicio Hogar 1">
+            <div class="service-text">
+                <h3>Dotaciones</h3>
+                <p>Lavado de prendas de oficina, pequeñas y grandes PYMES.</p>
+            </div>
+        </div>
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img8.png') }}" alt="Servicio Hogar 2">
+            <div class="service-text">
+                <h3>Sector Hotelero</h3>
+                <p>Sábanas, mantas, cobijas, cubrelechos, forros de colchon, etc.</p>
+            </div>
+        </div>
+        <div class="service">
+            <img src="{{ url_for('static', filename='img/img9.png') }}" alt="Servicio Hogar 3">
+            <div class="service-text">
+                <h3>Manteleria</h3>
+                <p>Manteles, servilletas, faldones, forros de sillas, cintas, etc</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

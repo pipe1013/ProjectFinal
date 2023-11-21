@@ -9,39 +9,56 @@
     <title>CRUD App</title>
 </head>
 <body>
-    
 
     <div class="sidebar">
         <h2>Menú</h2>
         <ul>
-            <li><a href="{{ url_for('cliente.cliente') }}">Gestionar Clientes</a></li>
+            <li><a href="{{ url_for('admin.admin') }}">Gestionar Clientes</a></li>
+            <li><a href="{{ url_for('admin.crearAdmin') }}">Gestionar Administradores</a></li>
         </ul>
     </div>
 
     <div class="content">
         <header>
-            <h1>Bienvenido, {{ nombre_usuario }}</h1>
+            <h1>Bienvenido {{ nombre_usuario }}</h1>
         </header>
         <table border="1">
             <thead>
                 <tr>
-                    <th>nn 1</th>
-                    <th> bb 2</th>
-                    <th>cc 3</th>
+                    <th>Nombre Cliente</th>
+                    <th>Tipo de Servicio</th>
+                    <th>Tipo de Prenda</th>
                 </tr>
             </thead>
             <tbody>
+                {% for cliente in datos_clientes %}
+                    <tr>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.tipo_servicio }}</td>
+                        <td>{{ cliente.tipo_prenda }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+        <h2>Información de Pedidos</h2>
+        
+        <table border="1">
+            <thead>
                 <tr>
-                    <td>Dato 1</td>
-                    <td>Dato 2</td>
-                    <td>Dato 3</td>
+                    <th>ID Pedido</th>
+                    <th>Cliente</th>
+                    <th>Descripción</th>
                 </tr>
-                <tr>
-                    <td>Dato 4</td>
-                    <td>Dato 5</td>
-                    <td>Dato 6</td>
-                </tr>
-                <!-- Puedes agregar más filas según sea necesario -->
+            </thead>
+            <tbody>
+                {% for pedido in datos_pedidos %}
+                    <tr>
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.cliente.nombre }}</td>
+                        <td>{{ pedido.descripcion }}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
 

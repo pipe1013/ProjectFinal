@@ -1,0 +1,102 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleIndex.css') }}">
+    <title>Página Principal</title>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo de la empresa">
+            <h1>LAVANDERIA PREMIUM</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a class="login-btn" href="{{ url_for('index.index') }}">Inicio</a></li>
+                <li><a class="login-btn" href="{{ url_for('nosotros.nosotros') }}">Sobre Nosotros</a></li>
+                <li><a class="login-btn" href="{{ url_for('servicios.servicios') }}">servicios</a></li>
+                <li><a class="login-btn" href="{{ url_for('login.login') }}">Iniciar Sesión</a></li>
+                <li><a class="login-btn" href="{{ url_for('register.register') }}">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Body -->
+    <div class="main-container">
+        <div class="content-container">
+            <div class="slogan-container">
+                <h1> "TÚ ROPA, NUESTRO COMPROMISO. 
+                    LAVAMOS CON PASIÓN, CUIDAMOS CON DELICADEZA." 
+                </h1>
+            </div>
+    
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='img/imagen.png') }}" alt="Imagen de lavadora">
+            </div>
+        </div>
+    
+        <div class="icons-container">
+            <!-- Icono 1 -->
+            <div class="icon">
+                <img src="{{ url_for('static', filename='img/icon1.png') }}" alt="Icono 1">
+                <h1 class="icon-label">Lavado en Seco</h1>
+                <div class="icon-info">
+                    <p>Pregunta por nuestras promociones y combos vigentes</p>
+                </div>
+            </div>
+
+            <!-- Icono 2 -->
+            <div class="icon">
+                <img src="{{ url_for('static', filename='img/icon2.png') }}" alt="Icono 1">
+                <h1 class="icon-label">Servicio de Lavanderia</h1>
+                <div class="icon-info">
+                    <p>Prendas de Vestir<br>
+                        Lencería<br>
+                        Ropa Institucional<br>
+                        Ropa hotelera</p>
+                   
+                </div>
+            </div>
+
+
+            <!-- Icono 3 -->
+            <div class="icon">
+                <img src="{{ url_for('static', filename='img/icon3.png') }}" alt="Icono 1">
+                <h1 class="icon-label">Ropa Por Libras</h1>
+                <div class="icon-info">
+                    <p>Pregunta por nuestras promociones y combos vigentes.</p>
+                </div>
+            </div>
+
+
+            <!-- Icono 4 -->
+            <div class="icon">
+                <img src="{{ url_for('static', filename='img/icon4.png') }}" alt="Icono 1">
+                <h1 class="icon-label">Lavado Tapetes y Cortinas</h1>
+                <div class="icon-info">
+                    <p>Pregunta por nuestras promociones y combos vigentes</p>
+                </div>
+            </div>
+
+
+            <!-- Icono 5 -->
+            <div class="icon">
+                <img src="{{ url_for('static', filename='img/icon5.png') }}" alt="Icono 1">
+                <h1 class="icon-label">Servicio a Domicilio</h1>
+                <div class="icon-info">
+                    <p>Recoges tu ropa y la volvemos a entregar</p>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

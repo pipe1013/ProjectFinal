@@ -49,7 +49,19 @@ body {
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.7);
   }
-  
+
+  .form input[type="tel"] {
+    font-family: 'Roboto', sans-serif;
+    outline: none;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
   .form button {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
@@ -92,4 +104,158 @@ body {
   .form p.message a:hover {
     text-decoration: underline;
   }
+  /* styleIndex.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2; /* Fondo gris claro */
+}
+
+header {
+  background-color: #000; /* Negro */
+  padding: 20px; /* Aumenta el padding para hacer el header más grande */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  text-align: center; /* Centra el texto horizontalmente */
+}
+.login-btn, .register-btn {
+ 
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Modificación para que el texto sea blanco en lugar de negro */
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra horizontal y verticalmente */
+  text-align: center; /* Centra el texto horizontalmente */
+}
+.logo-container h1 {
+  margin: 0; /* Elimina el margen predeterminado */
+  text-align: center; /* Centra el texto horizontalmente */
+}
+
+.logo-container img {
+  max-height: 50px;
+  margin-right: 10px;
+  justify-content: center;
+  text-align: center; /* Centra el texto horizontalmente */
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column; /* Cambia la dirección de los elementos a columna */
+  align-items: center;
+  padding: 20px;
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.image-container {
+  flex: 1;
+  text-align: center;
+  float: right;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  float: right;
+}
+
+.slogan-container {
+  flex: 1;
+  background-color: #aeb2b4; /* Color de fondo */
+  padding: 20px; /* Añade espacio interno */
+  text-align: center; /* Centra el texto horizontalmente */
+  color: white; /* Color del texto */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.slogan-container h2 {
+  font-size: 24px; /* Tamaño del texto */
+  margin: 0; /* Elimina el margen predeterminado */
   
+}
+
+.icons-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 40px; /* Aumenta el espacio entre el slogan y los iconos */
+}
+
+.icon {
+  text-align: center;
+}
+
+/* Estilo de los íconos */
+.icon img {
+  max-width: 150px; /* Tamaño máximo de los íconos, ajusta según sea necesario */
+  height: auto;
+}
+
+/* Estilo de las etiquetas de los íconos */
+.icon-label {
+  margin: 5px 0;
+  font-size: 14px; /* Tamaño del texto de las etiquetas, ajusta según sea necesario */
+}
+
+/* Estilo de la información sobre los íconos */
+.icon-info {
+  display: none;
+  position: absolute;
+  background-color: #e1dede;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px;
+  transition: opacity 0.5s ease; /* Añade una transición de opacidad suave */
+  font-size: 14px; /* Tamaño del texto de la información, ajusta según sea necesario */
+}
+
+.icon:hover .icon-info {
+  display: block;
+  opacity: 1; /* Muestra la información con opacidad completa */
+}
+
+/* Estilo de los botones de login y registro */
+.login-btn, .register-btn {
+  
+  color: #ffffff; /* Negro */
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Estilo de los iconos y etiquetas */
+.icon-label {
+  margin: 5px 0;
+  font-size: 20px;
+  color: rgb(183, 76, 76); /* Cambia a tu color deseado */
+}

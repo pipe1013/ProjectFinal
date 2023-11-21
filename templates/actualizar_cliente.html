@@ -13,7 +13,7 @@
     <div class="sidebar">
         <h2>Menú</h2>
         <ul>
-            <li><a href="{{ url_for('cliente.agendar_cita') }}">Gestionar Citas</a></li>
+            <li><a href="{{ url_for('admin.agendar_cita') }}">Gestionar Citas</a></li>
         </ul>
     </div>
 
@@ -26,7 +26,7 @@
             <h2>Editar Cliente</h2>
 
             <!-- Formulario para editar un cliente -->
-            <form method="POST" action="{{ url_for('cliente.actualizar_cliente', cliente_id=cliente.id_Cliente) }}">
+            <form method="POST" action="{{ url_for('admin.actualizar_cliente', cliente_id=cliente.id_Cliente) }}">
 
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="{{ cliente.nombre }}" required>
