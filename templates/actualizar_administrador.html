@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleAdmin.css') }}">
+    
+    <title>CRUD App</title>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <ul>
+            <li><a href="{{ url_for('admin.agendar_cita') }}">Gestionar Citas</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Bienvenido, {{ nombre_usuario }}</h1>
+        </header>
+
+        <div class="main-content">
+            <h2>Editar Administrador</h2>
+
+            <!-- Formulario para editar un administrador -->
+            <form method="POST" action="{{ url_for('admin.actualizar_administrador', admin_id=admin['id_Administrador']) }}">
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ nombre }}" required>
+            
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" value="{{ apellido }}" required>
+            
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" value="{{ telefono }}" required>
+            
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" value="{{ direccion }}" required>
+            
+                <input type="submit" value="Actualizar">
+            </form>
+            
+        </div>
+    </div>
+
+</body>
+</html>

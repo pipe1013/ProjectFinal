@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: phyton
+Version: 1.0.0a1
+Summary: the smallest part of a stem, root, or leaf that when severed may grow into a new plant
+Home-page: UNKNOWN
+Author-email: Tang Ziya <tcztzy@hotmail.com>
+License: UNKNOWN
+Keywords: plant,simulation,model
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Games/Entertainment :: Simulation
+Classifier: Topic :: Scientific/Engineering :: Artificial Life
+Classifier: Topic :: Scientific/Engineering :: Atmospheric Science
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Topic :: Scientific/Engineering :: Hydrology
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst
+
+Phyton
+======
+
+the smallest part of a stem, root, or leaf that when severed may grow into a new plant
+
+

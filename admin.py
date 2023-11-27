@@ -25,7 +25,10 @@ def admin():
 
 @admin_routes.route('/crearAdmin')
 def crearAdmin():
-    return render_template('crearAdmin.html')
+    datos_administradores = obtener_administradores_desde_db()
+
+    # Renderiza la plantilla y pasa los datos como argumento
+    return render_template('crearAdmin.html', nombre_usuario="Nombre de usuario", datos_administradores=datos_administradores)
 
 @admin_routes.route('/agendar_cita')
 def agendar_cita():
@@ -157,6 +160,57 @@ def eliminar_cliente(cliente_id):
 
     return redirect(url_for('admin.admin'))
 
+from flask import render_template  # Asegúrate de importar render_template
+
+@admin_routes.route('/actualizar_administrador/<int:admin_id>', methods=['POST'])
+def actualizar_administrador(admin_id):
+    conn = connect_to_db()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Obtener datos del formulario
+            nombre = request.form.get('nombre')
+            apellido = request.form.get('apellido')
+            telefono = request.form.get('telefono')
+            direccion = request.form.get('direccion')
+
+            # Actualizar el administrador en la tabla Administrador
+            sql_update_admin = "UPDATE Administrador SET nombre_admin = %s, apellido_admin = %s, telefono_admin = %s, direccion_admin = %s WHERE id_Administrador = %s"
+            cursor.execute(sql_update_admin, (nombre, apellido, telefono, direccion, admin_id))
+            conn.commit()
+
+            flash("Administrador actualizado exitosamente", "success")
+
+        except Exception as e:
+            flash(f"Error al actualizar el administrador: {str(e)}", "error")
+        finally:
+            cursor.close()
+            conn.close()
+
+    return redirect(url_for('admin.crearAdmin'))
+
+
+@admin_routes.route('/eliminar_administrador/<int:admin_id>', methods=['POST'])
+def eliminar_administrador(admin_id):
+    conn = connect_to_db()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Eliminar el administrador de la tabla Administrador
+            sql_delete_admin = "DELETE FROM Administrador WHERE id_Administrador = %s"
+            cursor.execute(sql_delete_admin, (admin_id,))
+            conn.commit()
+
+            flash("Administrador eliminado exitosamente", "success")
+
+        except Exception as e:
+            flash(f"Error al eliminar el administrador: {str(e)}", "error")
+        finally:
+            cursor.close()
+            conn.close()
+
+    return redirect(url_for('admin.crearAdmin'))
+
 @admin_routes.route('/gestionar_clientes')
 @login_required
 def gestionar_clientes():
@@ -188,4 +242,38 @@ def obtener_clientes_desde_db():
     
     # Retorna una lista vacía si hay algún problema con la conexión a la base de datos
     return []
+
+@admin_routes.route('/gestionar_administradores')
+@login_required
+def gestionar_administradores():
+    # Obtén los datos desde la base de datos
+    datos_administradores = obtener_administradores_desde_db()
+
+    # Renderiza la plantilla y pasa los datos como argumento
+    return render_template('crearAdmin.html', nombre_usuario="Nombre de usuario", datos_administradores=datos_administradores)
+
+def obtener_administradores_desde_db():
+    # Lógica para conectarse a la base de datos y obtener los administradores
+    conn = connect_to_db()
+    if conn:
+        cursor = conn.cursor()
+
+        # Realiza la consulta a la base de datos (ajusta según tu esquema)
+        sql = "SELECT id_Administrador, nombre_admin, apellido_admin, telefono_admin, direccion_admin FROM Administrador"
+        cursor.execute(sql)
+        administradores = cursor.fetchall()
+        print (administradores) 
+        cursor.close()
+        conn.close()
+        # Convierte el resultado de la consulta en una lista de diccionarios
+        columnas = ['id_Administrador', 'nombre_admin', 'apellido_admin', 'telefono_admin', 'direccion_admin']
+        administradores_list = [dict(zip(columnas, admin)) for admin in administradores]
+
+        return administradores_list
+    
+    
+    # Retorna una lista vacía si hay algún problema con la conexión a la base de datos
+    return []
+
+
 

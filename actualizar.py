@@ -4,6 +4,7 @@ from db import connect_to_db
 
 actualizar_routes = Blueprint('actualizar', __name__)
 
+
 def obtener_cliente_desde_db(cliente_id):
     # Lógica para conectarse a la base de datos y obtener los datos del cliente
     conn = connect_to_db()
