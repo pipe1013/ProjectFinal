@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interfaz de Cliente</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styleCliente.css') }}">
+</head>
+
+<body>
+
+    <div id="profile">
+        <div id="profile-info">
+          <img src="{{ url_for('static', filename='img/perfil.png') }}" alt="Icono de Persona" width="50" height="50">
+          <p>{{ user_data['nombre'] }} {{ user_data['apellido'] }}</p>
+        </div>
+        <div id="profile-form-container">
+          <form method="GET" action="{{ url_for('index.index') }}">
+            <input type="submit" value="Cerrar Sesión">
+          </form>
+        </div>
+      </div>
+
+  <nav>
+    <li><a href="{{ url_for('cliente.ver_perfil') }}">Ver Perfil</a></li>
+    <li><a href="{{ url_for('cliente.agendar_pedido') }}">Agendar Pedido</a></li>
+  </nav>
+
+  <h2>Editar Perfil</h2>
+  <form method="POST" action="{{ url_for('cliente.editar_perfil') }}">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="{{ user_data['nombre'] }}" required>
+    <br>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" value="{{ user_data['apellido'] }}" required>
+    <br>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="text" id="telefono" name="telefono" value="{{ user_data['telefono'] }}" required>
+    <br>
+
+    <label for="direccion">Dirección:</label>
+    <input type="text" id="direccion" name="direccion" value="{{ user_data['direccion'] }}" required>
+    <br>
+
+    <input type="submit" value="Guardar Cambios">
+  </form>
+
+  <div id="content">
+    <!-- Contenido de la página -->
+  </div>
+</body>
+</html>

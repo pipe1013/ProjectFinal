@@ -30,11 +30,6 @@ def crearAdmin():
     # Renderiza la plantilla y pasa los datos como argumento
     return render_template('crearAdmin.html', nombre_usuario="Nombre de usuario", datos_administradores=datos_administradores)
 
-@admin_routes.route('/agendar_cita')
-def agendar_cita():
-    # Lógica para listar clientes
-    return render_template('agendar_cita.html')
-
 @admin_routes.route('/listar_clientes')
 def listar_clientes():
     # Lógica para listar clientes
@@ -275,5 +270,38 @@ def obtener_administradores_desde_db():
     # Retorna una lista vacía si hay algún problema con la conexión a la base de datos
     return []
 
+@admin_routes.route('/adminPedidos')
+@login_required
+def adminPedidos():
+    # Obtén los datos de los servicios desde la base de datos
+    servicios = obtener_servicios_desde_db()
 
+    # Renderiza la plantilla y pasa los datos como argumento
+    return render_template('adminPedidos.html', nombre_usuario="Nombre de usuario", servicios=servicios)
+
+def obtener_servicios_desde_db():
+    # Lógica para conectarse a la base de datos y obtener los servicios agendados
+    conn = connect_to_db()
+    if conn:
+        cursor = conn.cursor()
+
+        sql = "SELECT id_Servicio, fecha_recogida, cantidad, Tipo_de_Servicio.nombre AS tipo_servicio, prenda.nombre AS tipo_prenda, cliente.nombre AS nombre_cliente, cliente.apellido AS apellido_cliente FROM Servicio " \
+      "JOIN Tipo_de_Servicio ON Servicio.id_TipoServicio = Tipo_de_Servicio.id_TipoServicio " \
+      "JOIN Tipo_de_Prenda AS prenda ON Servicio.id_Prenda = prenda.id_Prenda " \
+      "JOIN Cliente ON Servicio.id_Cliente = Cliente.id_Cliente"
+
+        cursor.execute(sql)
+        servicios = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        # Convierte el resultado de la consulta en una lista de diccionarios
+        columnas = ['id_Servicio', 'fecha_recogida', 'cantidad', 'tipo_servicio', 'tipo_prenda', 'nombre_cliente', 'apellido_cliente']
+        servicios_list = [dict(zip(columnas, servicio)) for servicio in servicios]
+
+        return servicios_list
+
+    # Retorna una lista vacía si hay algún problema con la conexión a la base de datos
+    return []
 

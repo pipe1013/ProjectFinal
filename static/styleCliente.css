@@ -1,0 +1,108 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Estilos del perfil */
+ /* Estilos del perfil */
+#profile {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #053050;
+    color: #688499;
+  }
+  
+  #profile-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  #profile img {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  /* Agrega estilos para el nuevo contenedor */
+  #profile-form-container {
+    margin-left: auto;
+  }
+  
+  
+  #profile-form-container input[type="submit"] {
+    background-color: #688499;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #profile-form-container input[type="submit"]:hover {
+    background-color: #496278;
+  }
+
+  /* Estilos de la barra de navegación */
+  nav {
+    background-color: #133751;
+    padding: 10px;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+  }
+  
+  nav a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  nav a:hover {
+    background-color: #7A94A7;
+  }
+  
+  /* Estilos del contenido */
+  #content {
+    margin-left: 220px;
+    padding: 20px;
+  }
+
+form {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto; /* Centrar el formulario */
+    max-width: 400px; /* Ajustar el ancho del formulario */
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;  
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    background-color: #688499;
+    color: #fff;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #496278;
+}

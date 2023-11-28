@@ -21,7 +21,7 @@ def login():
             admin = cursor.fetchone()
 
             # Buscar en la tabla Cliente
-            sql_cliente = "SELECT id_Cliente, nombre, contrasena FROM Cliente WHERE nombre = %s AND contrasena = %s LIMIT 1"
+            sql_cliente = "SELECT id_Cliente, nombre, apellido, telefono, direccion, contrasena FROM Cliente WHERE nombre = %s AND contrasena = %s LIMIT 1"
             cursor.execute(sql_cliente, (nombre, contrasena))
             cliente = cursor.fetchone()
 
@@ -39,6 +39,13 @@ def login():
                 session['user_id'] = cliente[0]
                 session['user_name'] = cliente[1]
                 session['user_role'] = 'cliente'
+                session['user_data'] = {
+                    'id_Cliente': cliente[0],
+                    'nombre': cliente[1],
+                    'apellido': cliente[2],
+                    'telefono': cliente[3],
+                    'direccion': cliente[4]
+                }
                 return redirect(url_for('cliente.cliente'))
             else:
                 error_message = "Credenciales inválidas. Por favor, intenta nuevamente."

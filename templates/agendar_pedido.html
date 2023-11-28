@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interfaz de Cliente</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylePedido.css') }}">
+</head>
+
+<body>
+
+  {% if 'user_data' in session and session['user_role'] == 'cliente' %}
+    <div id="profile">
+      <div id="profile-info">
+        <img src="{{ url_for('static', filename='img/perfil.png') }}"  alt="Icono de Persona" width="50" height="50">
+        <p>{{ session['user_data']['nombre'] }} {{ session['user_data']['apellido'] }}</p>
+      </div>
+      <div id="profile-form-container">
+        <form method="GET" action="{{ url_for('index.index') }}">
+          <input type="submit" value="Cerrar Sesión">
+        </form>
+      </div>
+    </div>
+
+    <nav>
+      <li><a href="{{ url_for('cliente.ver_perfil') }}">Ver Perfil</a></li>
+      <li><a href="{{ url_for('cliente.agendar_pedido') }}">Agendar Pedido</a></li>
+    </nav>
+
+    <h2>Agendar Pedido</h2>
+    <form method="POST" action="{{ url_for('cliente.agendar_pedido') }}">
+      <label for="fecha_recogida">Fecha de Recogida:</label>
+      <input type="date" id="fecha_recogida" name="fecha_recogida" required>
+      <br>
+
+      <label for="cantidad">Cantidad:</label>
+      <input type="number" id="cantidad" name="cantidad" required>
+      <br>
+
+      <label for="tipo_servicio">Tipo de Servicio:</label>
+      <select id="tipo_servicio" name="tipo_servicio" required>
+       {% for option in tipo_servicio_options %}
+      <option value="{{ option[0] }}">{{ option[1] }}</option>
+       {% endfor %}
+      </select>
+      <br>
+
+    <label for="tipo_prenda">Tipo de Prenda:</label>
+    <select id="tipo_prenda" name="tipo_prenda" required>
+      {% for option in tipo_prenda_options %}
+    <option value="{{ option[0] }}">{{ option[1] }}</option>
+      {% endfor %}  
+    </select>
+    <br>
+
+      <input type="submit" value="Agendar Pedido">
+    </form>
+
+    <div id="content">
+      <!-- Contenido de la página -->
+    </div>
+  {% else %}
+    <p>¡Acceso no autorizado!</p>
+    <a href="{{ url_for('login.login') }}">Iniciar Sesión</a>
+  {% endif %}
+
+</body>
+</html>

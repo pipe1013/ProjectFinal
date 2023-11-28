@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleAdmin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleTable.css') }}">
+    
+    <title>Admin</title>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <ul>
+            <li><a href="{{ url_for('admin.adminPedidos') }}">Gestionar Pedidos</a></li>
+            <li><a href="{{ url_for('admin.crearAdmin') }}">Gestionar Administradores</a></li>
+            <li><a href="{{ url_for('admin.admin') }}">Gestionar Clientes</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>Bienvenido</h1>
+            <!-- Botón para cerrar sesión -->
+            <form method="GET" action="{{ url_for('index.index') }}">
+                <input type="submit" value="Cerrar Sesión" class="logout-button">
+            </form>
+        </header>
+
+        <div class="main-content">
+            <h2>Servicios Agendados</h2>
+
+            <!-- Tabla para mostrar servicios agendados -->
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha de Recogida</th>
+                        <th>Cantidad</th>
+                        <th>Tipo de Servicio</th>
+                        <th>Tipo de Prenda</th>
+                        <th>Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for servicio in servicios %}
+                        <tr>
+                            <td>{{ servicio.id_Servicio }}</td>
+                            <td>{{ servicio.fecha_recogida }}</td>
+                            <td>{{ servicio.cantidad }}</td>
+                            <td>{{ servicio.tipo_servicio }}</td>
+                            <td>{{ servicio.tipo_prenda }}</td>
+                            <td>{{ servicio.nombre_cliente }} {{ servicio.apellido_cliente }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Agrega aquí cualquier script adicional que puedas necesitar
+        });
+    </script>
+
+</body>
+</html>
