@@ -96,7 +96,7 @@
                                 <td>{{ admin['telefono_admin'] }}</td>
                                 <td>{{ admin['direccion_admin'] }}</td>
                                 <td>
-                                    <a href="{{ url_for('admin.actualizar_administrador', admin_id=admin['id_Administrador']) }}">Editar</a>
+                                    <a href="{{ url_for('actualizarAdmin.actualizarAdmin', id_Administrador=admin['id_Administrador']) }}">Editar</a>
                 
                                     <form method="POST" action="{{ url_for('admin.eliminar_administrador', admin_id=admin['id_Administrador']) }}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este administrador?');">
                                         <input type="submit" value="Eliminar">

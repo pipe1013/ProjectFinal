@@ -1,40 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interfaz de Cliente</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styleCliente.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz de Cliente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleCliente.css') }}">
+    <style>
+        /* Aquí va el contenido del archivo styleCliente.css */
+    </style>
 </head>
 
 <body>
 
-  {% if 'user_data' in session and session['user_role'] == 'cliente' %}
-    <div id="profile">
-      <div id="profile-info">
-        <img src="{{ url_for('static', filename='img/perfil.png') }}"  alt="Icono de Persona" width="50" height="50">
-        <p>{{ session['user_data']['nombre'] }} {{ session['user_data']['apellido'] }}</p>
-      </div>
-    <div id="profile-form-container">
-      <form method="GET" action="{{ url_for('index.index') }}">
-          <input type="submit" value="Cerrar Sesión">
-      </form>
-    </div>
-</div>
+    {% if 'user_data' in session and session['user_role'] == 'cliente' %}
+        <div id="profile">
+            <div id="profile-info">
+                <img src="{{ url_for('static', filename='img/perfil.png') }}"  alt="Icono de Persona" width="50" height="50">
+                <p>{{ session['user_data']['nombre'] }} {{ session['user_data']['apellido'] }}</p>
+            </div>
+            <div id="profile-form-container">
+                <form method="GET" action="{{ url_for('index.index') }}">
+                    <input type="submit" value="Cerrar Sesión">
+                </form>
+            </div>
+        </div>
 
-    <nav>
-      <li><a href="{{ url_for('cliente.ver_perfil') }}">Ver Perfil</a></li>
-      <li><a href="{{ url_for('cliente.agendar_pedido') }}">Agendar Pedido</a></li>
-    </nav>
+        <nav>
+            <li><a href="{{ url_for('cliente.cliente') }}">Inicio</a></li>
+            <li><a href="{{ url_for('cliente.ver_perfil') }}">Ver Perfil</a></li>
+            <li><a href="{{ url_for('cliente.agendar_pedido') }}">Agendar Pedido</a></li>
+        </nav>
 
-    <div id="content">
-      <!-- Contenido de la página -->
-    </div>
-  {% else %}
-    <p>¡Acceso no autorizado!</p>
-    <a href="{{ url_for('login.login') }}">Iniciar Sesión</a>
-  {% endif %}
+        <h2>Mis Pedidos</h2>
+        <table>
+            <tr>
+                <th>Fecha de Recogida</th>
+                <th>Cantidad</th>
+                <th>Tipo de Servicio</th>
+                <th>Tipo de Prenda</th>
+            </tr>
+            {% for pedido in pedidos %}
+                <tr>
+                    <!-- Asegúrate de utilizar los mismos nombres que en la consulta SQL -->
+                    <td>{{ pedido[1] }}</td>
+                    <td>{{ pedido[2] }}</td>
+                    <td>{{ pedido[3] }}</td>
+                    <td>{{ pedido[4] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <div id="content">
+            <!-- Contenido de la página -->
+        </div>
+    {% else %}
+        <p>¡Acceso no autorizado!</p>
+        <a href="{{ url_for('login.login') }}">Iniciar Sesión</a>
+    {% endif %}
 
 </body>
 </html>
-

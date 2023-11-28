@@ -5,50 +5,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interfaz de Cliente</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styleCliente.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 
 <body>
 
-    <div id="profile">
-        <div id="profile-info">
-          <img src="{{ url_for('static', filename='img/perfil.png') }}" alt="Icono de Persona" width="50" height="50">
-          <p>{{ user_data['nombre'] }} {{ user_data['apellido'] }}</p>
-        </div>
-        <div id="profile-form-container">
-          <form method="GET" action="{{ url_for('index.index') }}">
-            <input type="submit" value="Cerrar Sesión">
-          </form>
-        </div>
-      </div>
+<div id="profile">
+    <div id="profile-info">
+      <img src="{{ url_for('static', filename='img/perfil.png') }}" alt="Icono de Persona" width="50" height="50">
+      <p>{{ user_data['nombre'] }} {{ user_data['apellido'] }}</p>
+    </div>
+    <div id="profile-form-container">
+      <form method="GET" action="{{ url_for('index.index') }}">
+        <input type="submit" value="Cerrar Sesión">
+      </form>
+    </div>
+  </div>
 
   <nav>
+    <li><a href="{{ url_for('cliente.cliente') }}">Inicio</a></li>
     <li><a href="{{ url_for('cliente.ver_perfil') }}">Ver Perfil</a></li>
     <li><a href="{{ url_for('cliente.agendar_pedido') }}">Agendar Pedido</a></li>
   </nav>
 
   <h2>Editar Perfil</h2>
-  <form method="POST" action="{{ url_for('cliente.editar_perfil') }}">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" value="{{ user_data['nombre'] }}" required>
-    <br>
+<form id="editarForm" method="POST" action="{{ url_for('cliente.editar_perfil') }}">
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" value="{{ user_data['nombre'] }}" required>
+  <br>
 
-    <label for="apellido">Apellido:</label>
-    <input type="text" id="apellido" name="apellido" value="{{ user_data['apellido'] }}" required>
-    <br>
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" name="apellido" value="{{ user_data['apellido'] }}" required>
+  <br>
 
-    <label for="telefono">Teléfono:</label>
-    <input type="text" id="telefono" name="telefono" value="{{ user_data['telefono'] }}" required>
-    <br>
+  <label for="telefono">Teléfono:</label>
+  <input type="text" id="telefono" name="telefono" value="{{ user_data['telefono'] }}" required>
+  <br>
 
-    <label for="direccion">Dirección:</label>
-    <input type="text" id="direccion" name="direccion" value="{{ user_data['direccion'] }}" required>
-    <br>
+  <label for="direccion">Dirección:</label>
+  <input type="text" id="direccion" name="direccion" value="{{ user_data['direccion'] }}" required>
+  <br>
 
-    <input type="submit" value="Guardar Cambios">
-  </form>
+  <!-- Campo oculto para indicar cambios realizados -->
+  <input type="hidden" id="cambios_realizados" name="cambios_realizados" value="0">
 
-  <div id="content">
-    <!-- Contenido de la página -->
-  </div>
-</body>
-</html>
+  <input type="submit" value="Guardar Cambios">
+</form>
+
+<!-- Script JavaScript para detectar cambios en tiempo real y manejar la respuesta del servidor -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('editarForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+  
+          var cambiosRealizados = document.getElementById('cambios_realizados').value;
+         
+          // Solo enviar la solicitud si se realizaron cambios
+          if (cambiosRealizados === '1') {
+              var formData = new FormData(this);
+  
+              fetch("{{ url_for('cliente.editar_perfil') }}", {
+                  method: "POST",
+                  body: formData,
+                  credentials: "same-origin"
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      // Actualizar la página con los datos actualizados
+                      window.location.reload();
+  
+                      // Mostrar la alerta de éxito con SweetAlert2
+                      Swal.fire({
+                          icon: 'success',
+                          title: '¡Perfil actualizado correctamente!',
+                          showConfirmButton: false,
+                          timer: 2000 // La alerta desaparecerá después de 2 segundos
+                      });
+                  } else {
+                      // Manejar el error, mostrar un mensaje, etc.
+                      console.error("Error al actualizar el perfil");
+  
+                      // Mostrar la alerta de error con SweetAlert2
+                      Swal.fire({
+                        icon: 'success',
+                        title: '¡Perfil actualizado correctamente!',
+                        showConfirmButton: false,
+                        timer: 2000 // La alerta desaparecerá después de 2 segundos
+                    });
+                  }
+              })
+              .catch(error => {
+                  console.error("Error al realizar la solicitud:", error);
+  
+                  // Mostrar la alerta de error con SweetAlert2
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Perfil actualizado correctamente!',
+                    showConfirmButton: false,
+                    timer: 2000 // La alerta desaparecerá después de 2 segundos
+                });
+              });
+          }
+      });
+  
+      document.querySelectorAll('input, textarea').forEach(function(element) {
+          element.addEventListener('input', function() {
+              document.getElementById('cambios_realizados').value = '1';
+          });
+      });
+  });
+  </script>
+  </body>
+  </html>
+  

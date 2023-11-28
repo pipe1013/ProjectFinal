@@ -12,6 +12,7 @@ from nosotros import nosotros_routes
 from servicios import servicios_routes
 from actualizar import actualizar_routes
 from cliente import cliente_routes
+from actualizarAdmin import actualizarAdmin_routes
 
 
 app = Flask(__name__)
@@ -28,6 +29,7 @@ app.register_blueprint(nosotros_routes)
 app.register_blueprint(servicios_routes)
 app.register_blueprint(actualizar_routes)
 app.register_blueprint(cliente_routes)
+app.register_blueprint(actualizarAdmin_routes)
 
 
 if __name__ == '__main__':

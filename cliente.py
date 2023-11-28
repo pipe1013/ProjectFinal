@@ -7,9 +7,42 @@ import mysql.connector
 
 cliente_routes = Blueprint('cliente', __name__)
 
+# Añadir esta importación al principio del archivo
+from datetime import datetime
+
+# Modificar la función cliente en cliente.py
 @cliente_routes.route('/cliente')
 def cliente():
-    return render_template('cliente.html')
+    user_data = session.get('user_data', None)
+
+    if user_data and session['user_role'] == 'cliente':
+        # Obtener pedidos del cliente desde la base de datos
+        conn = connect_to_db()
+        if conn:
+            cursor = conn.cursor()
+
+            # Consulta para obtener los pedidos del cliente
+            sql_pedidos = """
+                SELECT s.id_Servicio, s.fecha_recogida, s.cantidad, ts.nombre as tipo_servicio, tp.nombre as tipo_prenda
+                FROM Servicio s
+                JOIN Tipo_de_Servicio ts ON s.id_TipoServicio = ts.id_TipoServicio
+                JOIN Tipo_de_Prenda tp ON s.id_Prenda = tp.id_Prenda
+                WHERE s.id_Cliente = %s
+            """
+            cursor.execute(sql_pedidos, (user_data['id_Cliente'],))
+            pedidos = cursor.fetchall()
+
+            cursor.close()
+            conn.close()
+
+            # Convertir la fecha de recogida a formato legible
+            for i, pedido in enumerate(pedidos):
+                pedidos[i] = (pedido[0], pedido[1].strftime('%Y-%m-%d'), pedido[2], pedido[3], pedido[4])
+
+            return render_template('cliente.html', user_data=user_data, pedidos=pedidos)
+    else:
+        # Manejar el caso en el que el usuario no esté autenticado como cliente
+        return redirect(url_for('login.login'))
 
 
 @cliente_routes.route('/ver_perfil', methods=['GET'])

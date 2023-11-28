@@ -155,10 +155,9 @@ def eliminar_cliente(cliente_id):
 
     return redirect(url_for('admin.admin'))
 
-from flask import render_template  # Asegúrate de importar render_template
 
-@admin_routes.route('/actualizar_administrador/<int:admin_id>', methods=['POST'])
-def actualizar_administrador(admin_id):
+@admin_routes.route('/actualizar_admin/<int:administador_id>', methods=['POST'])
+def actualizar_administrador(administador_id):
     conn = connect_to_db()
     if conn:
         cursor = conn.cursor()
@@ -169,15 +168,15 @@ def actualizar_administrador(admin_id):
             telefono = request.form.get('telefono')
             direccion = request.form.get('direccion')
 
-            # Actualizar el administrador en la tabla Administrador
-            sql_update_admin = "UPDATE Administrador SET nombre_admin = %s, apellido_admin = %s, telefono_admin = %s, direccion_admin = %s WHERE id_Administrador = %s"
-            cursor.execute(sql_update_admin, (nombre, apellido, telefono, direccion, admin_id))
+            # Actualizar el cliente en la tabla Cliente
+            sql_update_cliente = "UPDATE Administrador SET nombre_admin = %s, apellido_admin = %s, telefono_admin = %s, direccion_admin = %s WHERE id_Administrador = %s"
+            cursor.execute(sql_update_cliente, (nombre, apellido, telefono, direccion, administador_id))
             conn.commit()
 
-            flash("Administrador actualizado exitosamente", "success")
-
+            flash("Admin actualizado exitosamente", "success")
+           
         except Exception as e:
-            flash(f"Error al actualizar el administrador: {str(e)}", "error")
+            flash(f"Error al actualizar el Admin: {str(e)}", "error")
         finally:
             cursor.close()
             conn.close()
@@ -285,7 +284,7 @@ def obtener_servicios_desde_db():
     if conn:
         cursor = conn.cursor()
 
-        sql = "SELECT id_Servicio, fecha_recogida, cantidad, Tipo_de_Servicio.nombre AS tipo_servicio, prenda.nombre AS tipo_prenda, cliente.nombre AS nombre_cliente, cliente.apellido AS apellido_cliente FROM Servicio " \
+        sql = "SELECT id_Servicio, fecha_recogida, cantidad, Tipo_de_Servicio.nombre AS tipo_servicio, prenda.nombre AS tipo_prenda, cliente.nombre AS nombre_cliente, cliente.apellido AS apellido_cliente,cliente.telefono AS cliente_telefono FROM Servicio " \
       "JOIN Tipo_de_Servicio ON Servicio.id_TipoServicio = Tipo_de_Servicio.id_TipoServicio " \
       "JOIN Tipo_de_Prenda AS prenda ON Servicio.id_Prenda = prenda.id_Prenda " \
       "JOIN Cliente ON Servicio.id_Cliente = Cliente.id_Cliente"
@@ -297,11 +296,10 @@ def obtener_servicios_desde_db():
         conn.close()
 
         # Convierte el resultado de la consulta en una lista de diccionarios
-        columnas = ['id_Servicio', 'fecha_recogida', 'cantidad', 'tipo_servicio', 'tipo_prenda', 'nombre_cliente', 'apellido_cliente']
+        columnas = ['id_Servicio', 'fecha_recogida', 'cantidad', 'tipo_servicio', 'tipo_prenda', 'nombre_cliente', 'apellido_cliente','cliente_telefono']
         servicios_list = [dict(zip(columnas, servicio)) for servicio in servicios]
 
         return servicios_list
 
     # Retorna una lista vacía si hay algún problema con la conexión a la base de datos
     return []
-
